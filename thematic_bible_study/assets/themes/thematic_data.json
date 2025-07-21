@@ -1,0 +1,28 @@
+[
+  {
+    "name": "Love",
+    "description": "Scriptures exploring the nature and command of love.",
+    "verses": [
+      {"book": "John", "chapter": 3, "verseStart": 16, "verseEnd": 16},
+      {"book": "1 Corinthians", "chapter": 13, "verseStart": 4, "verseEnd": 7},
+      {"book": "Romans", "chapter": 5, "verseStart": 8, "verseEnd": 8}
+    ]
+  },
+  {
+    "name": "Faith",
+    "description": "Understanding what faith is and how to walk by it.",
+    "verses": [
+      {"book": "Hebrews", "chapter": 11, "verseStart": 1, "verseEnd": 1},
+      {"book": "Romans", "chapter": 10, "verseStart": 17, "verseEnd": 17},
+      {"book": "James", "chapter": 2, "verseStart": 17, "verseEnd": 17}
+    ]
+  },
+  {
+    "name": "Prayer",
+    "description": "Guidance and examples on how to pray effectively.",
+    "verses": [
+      {"book": "Philippians", "chapter": 4, "verseStart": 6, "verseEnd": 7},
+      {"book": "Matthew", "chapter": 6, "verseStart": 9, "verseEnd": 13}
+    ]
+  }
+]

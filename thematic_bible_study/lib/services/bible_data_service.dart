@@ -1,27 +1,25 @@
 // lib/services/bible_data_service.dart
-import 'dart:convert'; // For jsonDecode
-import 'package:flutter/services.dart' show rootBundle; // For loading assets
-import '../models/bible_models.dart'; // Your custom models
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
+import '../models/bible_models.dart';
+import '../models/thematic_models.dart';
 
 class BibleDataService {
   // Method to load a specific book by its name (e.g., 'Genesis', 'John')
   Future<Book> loadBook(String bookName) async {
-    // Construct the path to the JSON file
-    final String assetPath = 'assets/bible_data/$bookName.json';
+    // --- CHANGE THIS LINE ---
+    // Remove all spaces from the bookName to match the file name
+    final String formattedBookName = bookName.replaceAll(' ', '');
+    final String assetPath = 'assets/bible_data/$formattedBookName.json';
+    // --- END CHANGE ---
 
     try {
-      // Load the JSON string from the asset bundle
       final String jsonString = await rootBundle.loadString(assetPath);
-
-      // Decode the JSON string into a Dart map
       final Map<String, dynamic> jsonMap = jsonDecode(jsonString);
-
-      // Convert the JSON map into your Book object using the factory constructor
       return Book.fromJson(jsonMap);
     } catch (e) {
-      // Handle errors (e.g., file not found, parsing error)
-      print('Error loading or parsing $bookName.json: $e');
-      rethrow; // Re-throw the error to be handled by the UI
+      print('Error loading or parsing $formattedBookName.json: $e'); // Use formatted name in error
+      rethrow;
     }
   }
 
@@ -29,16 +27,14 @@ class BibleDataService {
     final String assetPath = 'assets/bible_data/Books.json';
     try {
       final String jsonString = await rootBundle.loadString(assetPath);
-      final dynamic decodedJson = jsonDecode(jsonString); // Decode as dynamic
+      final dynamic decodedJson = jsonDecode(jsonString);
 
       if (decodedJson is List) {
-        // If it's a list, we now expect it to be a list of strings directly
         List<String> bookNames = [];
         for (var item in decodedJson) {
-          if (item is String) { // Check if the item is a String
+          if (item is String) {
             bookNames.add(item);
           } else {
-            // Log if there's an unexpected type, but don't crash
             print('Warning: Found non-string item in Books.json: $item');
           }
         }
@@ -48,6 +44,21 @@ class BibleDataService {
       }
     } catch (e) {
       print('Error loading book names from Books.json: $e');
+      rethrow;
+    }
+  }
+
+  Future<List<BibleTheme>> loadThemes() async {
+    final String assetPath = 'assets/themes/thematic_data.json';
+    try {
+      final String jsonString = await rootBundle.loadString(assetPath);
+      final List<dynamic> jsonList = jsonDecode(jsonString);
+
+      List<BibleTheme> themes =
+          jsonList.map((json) => BibleTheme.fromJson(json as Map<String, dynamic>)).toList();
+      return themes;
+    } catch (e) {
+      print('Error loading or parsing thematic_data.json: $e');
       rethrow;
     }
   }
