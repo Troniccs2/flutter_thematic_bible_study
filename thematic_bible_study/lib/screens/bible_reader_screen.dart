@@ -1,3 +1,4 @@
+// lib/screens/bible_reader_screen.dart
 import 'package:flutter/material.dart';
 import 'package:thematic_bible_study/models/bible_models.dart';
 import 'package:thematic_bible_study/services/bible_data_service.dart';
@@ -12,67 +13,79 @@ class BibleReaderScreen extends StatefulWidget {
 class _BibleReaderScreenState extends State<BibleReaderScreen> {
   final BibleDataService _bibleDataService = BibleDataService();
 
-  List<String> _bookNames = []; // To store all book names
-  String? _selectedBookName;   // Currently selected book
-  int _selectedChapterNumber = 1; // Currently selected chapter (default to 1)
+  List<String> _bookNames = [];
+  String? _selectedBookName;
+  int _selectedChapterNumber = 1;
 
-  Future<Book>? _loadedBookFuture; // Future to hold our loaded book
+  Future<Book>? _loadedBookFuture;
 
   @override
   void initState() {
     super.initState();
-    _loadInitialData(); // Call a new method to load everything
+    _loadInitialData();
   }
 
   Future<void> _loadInitialData() async {
     try {
-      // Load all book names first
       final names = await _bibleDataService.loadBookNames();
       setState(() {
         _bookNames = names;
-        // Set an initial selected book, e.g., 'Genesis' or the first one
         _selectedBookName = _bookNames.isNotEmpty ? 'Genesis' : null;
       });
-      // Load the initial selected book
       _loadSelectedBookAndChapter();
     } catch (e) {
       print('Error loading initial data: $e');
-      // Handle error for initial data loading (e.g., show a persistent error message)
     }
   }
 
   void _loadSelectedBookAndChapter() {
     if (_selectedBookName != null) {
       setState(() {
-        // Assign the Future to _loadedBookFuture
         _loadedBookFuture = _bibleDataService.loadBook(_selectedBookName!);
       });
     }
   }
 
+  // --- NEW METHODS FOR NAVIGATION ---
+  void _goToPreviousChapter(int totalChapters) {
+    if (_selectedChapterNumber > 1) {
+      setState(() {
+        _selectedChapterNumber--;
+      });
+    }
+  }
+
+  void _goToNextChapter(int totalChapters) {
+    if (_selectedChapterNumber < totalChapters) {
+      setState(() {
+        _selectedChapterNumber++;
+      });
+    }
+  }
+  // --- END NEW METHODS ---
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bible Reader'), // General title
-        backgroundColor: Theme.of(context).primaryColor,
+        title: const Text('Bible Reader'),
+        // AppBar color is now defined in ThemeData in main.dart for consistency
         actions: [
-          // Book Selector
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: DropdownButtonHideUnderline( // Hides the default underline
+            child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
                 value: _selectedBookName,
                 hint: const Text('Select Book', style: TextStyle(color: Colors.white)),
-                dropdownColor: Theme.of(context).primaryColor, // Dropdown background color
-                style: const TextStyle(color: Colors.white, fontSize: 16), // Text style for items
+                dropdownColor: Theme.of(context).primaryColor,
+                style: const TextStyle(color: Colors.white, fontSize: 16),
                 onChanged: (String? newValue) {
                   if (newValue != null) {
                     setState(() {
                       _selectedBookName = newValue;
                       _selectedChapterNumber = 1; // Reset chapter to 1 when book changes
                     });
-                    _loadSelectedBookAndChapter(); // Load the new book
+                    _loadSelectedBookAndChapter();
                   }
                 },
                 items: _bookNames.map<DropdownMenuItem<String>>((String value) {
@@ -84,10 +97,6 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
               ),
             ),
           ),
-          // Chapter Selector (will be populated once a book is loaded)
-          // For simplicity, we'll put this inside the FutureBuilder's hasData block later.
-          // Or, we can keep it here and enable/disable based on _loadedBookFuture state.
-          // Let's integrate it more smartly in the body for now.
         ],
       ),
       body: FutureBuilder<Book>(
@@ -109,16 +118,17 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
           } else if (snapshot.hasData) {
             final Book book = snapshot.data!;
             if (book.chapters.isNotEmpty) {
-              // Get the selected chapter. Ensure _selectedChapterNumber is valid.
               final Chapter? currentChapter = book.chapters.length >= _selectedChapterNumber
                   ? book.chapters[_selectedChapterNumber - 1]
-                  : null; // Use null if chapter is out of bounds (shouldn't happen with proper logic)
+                  : null;
 
               if (currentChapter == null) {
                  return const Center(child: Text('Chapter not found.'));
               }
 
-              return Column( // Use Column to stack chapter selector and text box
+              final int totalChapters = book.chapters.length; // Get total chapters for this book
+
+              return Column(
                 children: [
                   // Chapter Selector
                   Padding(
@@ -132,10 +142,9 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
                             setState(() {
                               _selectedChapterNumber = newValue;
                             });
-                            // No need to reload book, just update UI with new chapter
                           }
                         },
-                        items: List.generate(book.chapters.length, (index) => index + 1)
+                        items: List.generate(totalChapters, (index) => index + 1)
                             .map<DropdownMenuItem<int>>((int chapterNum) {
                           return DropdownMenuItem<int>(
                             value: chapterNum,
@@ -148,7 +157,7 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
                   // The main Bible text box (expanded to fill remaining space)
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), // Padding from screen edges
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                       child: Card(
                         elevation: 4.0,
                         shape: RoundedRectangleBorder(
@@ -158,7 +167,7 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
                           padding: const EdgeInsets.all(16.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: currentChapter.verses.map((verse) { // Use currentChapter.verses
+                            children: currentChapter.verses.map((verse) {
                               return Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 4.0),
                                 child: RichText(
@@ -190,13 +199,37 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
                       ),
                     ),
                   ),
+                  // --- NEW: Navigation Buttons ---
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ElevatedButton.icon(
+                          onPressed: _selectedChapterNumber > 1
+                              ? () => _goToPreviousChapter(totalChapters)
+                              : null, // Disable if on chapter 1
+                          icon: const Icon(Icons.arrow_back),
+                          label: const Text('Previous Chapter'),
+                        ),
+                        ElevatedButton.icon(
+                          onPressed: _selectedChapterNumber < totalChapters
+                              ? () => _goToNextChapter(totalChapters)
+                              : null, // Disable if on last chapter
+                          icon: const Icon(Icons.arrow_forward),
+                          label: const Text('Next Chapter'),
+                        ),
+                      ],
+                    ),
+                  ),
+                  // --- END NEW ---
                 ],
               );
             } else {
               return const Center(child: Text('Book loaded but no chapters found.'));
             }
           } else {
-            return const Center(child: Text('Select a book...')); // Initial state before selection
+            return const Center(child: Text('Select a book...'));
           }
         },
       ),

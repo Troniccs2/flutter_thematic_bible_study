@@ -1,18 +1,31 @@
 // lib/models/bible_models.dart
 
+
 class Verse {
   final int verseNumber;
   final String text;
+  final String? bookName;
+  final int? chapterNumber;
 
-  Verse({required this.verseNumber, required this.text});
+  Verse({
+    required this.verseNumber,
+    required this.text,
+    this.bookName,
+    this.chapterNumber,
+  });
 
-  // Factory constructor to create a Verse object from a JSON map
   factory Verse.fromJson(Map<String, dynamic> json) {
     return Verse(
-      // *** CHANGE HERE: Use int.parse() to convert the string 'verse' to an int ***
       verseNumber: int.parse(json['verse'].toString()),
       text: json['text'] as String,
     );
+  }
+
+  String get formattedReference {
+    if (bookName != null && chapterNumber != null) {
+      return '$bookName $chapterNumber:$verseNumber';
+    }
+    return 'Verse $verseNumber';
   }
 }
 
@@ -22,21 +35,18 @@ class Chapter {
 
   Chapter({required this.chapterNumber, required this.verses});
 
-  // Factory constructor to create a Chapter object from a JSON map
   factory Chapter.fromJson(Map<String, dynamic> json) {
     var versesList = json['verses'] as List;
     List<Verse> chapterVerses =
-        versesList.map((verseJson) => Verse.fromJson(verseJson)).toList();
+        versesList.map((verseJson) => Verse.fromJson(verseJson as Map<String, dynamic>)).toList();
 
     return Chapter(
-      // *** CHANGE HERE: Use int.parse() to convert the string 'chapter' to an int ***
       chapterNumber: int.parse(json['chapter'].toString()),
       verses: chapterVerses,
     );
   }
 }
 
-// The Book class remains EXACTLY the same as it was, no changes needed for it.
 class Book {
   final String name;
   final List<Chapter> chapters;
@@ -46,7 +56,7 @@ class Book {
   factory Book.fromJson(Map<String, dynamic> json) {
     var chaptersList = json['chapters'] as List;
     List<Chapter> bookChapters =
-        chaptersList.map((chapterJson) => Chapter.fromJson(chapterJson)).toList();
+        chaptersList.map((chapterJson) => Chapter.fromJson(chapterJson as Map<String, dynamic>)).toList();
 
     return Book(
       name: json['book'] as String,
