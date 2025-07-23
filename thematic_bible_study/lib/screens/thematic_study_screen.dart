@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:thematic_bible_study/models/thematic_models.dart';
 import 'package:thematic_bible_study/services/bible_data_service.dart';
+import 'package:thematic_bible_study/screens/verse_list_screen.dart'; // Import the new screen
 
 class ThematicStudyScreen extends StatefulWidget {
   const ThematicStudyScreen({super.key});
@@ -60,15 +61,22 @@ class _ThematicStudyScreenState extends State<ThematicStudyScreen> {
                     ),
                     child: InkWell( // Makes the card tappable
                       onTap: () {
-                        // TODO: Navigate to a screen to display verses for this theme
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Tapped on theme: ${theme.name} - ${theme.verses.length} verses')),
+                        // Navigate to the VerseListScreen, passing the selected theme
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => VerseListScreen(theme: theme),
+                          ),
                         );
-                        // For now, let's print the verses to console as a placeholder
-                        print('Verses for ${theme.name}:');
-                        for (var ref in theme.verses) {
-                          print(' - ${ref.formattedReference}');
-                        }
+                        // You can remove the SnackBar and print statements now if you like,
+                        // as the navigation will handle the display.
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(content: Text('Tapped on theme: ${theme.name} - ${theme.verses.length} verses')),
+                        // );
+                        // print('Verses for ${theme.name}:');
+                        // for (var ref in theme.verses) {
+                        //   print(' - ${ref.formattedReference}');
+                        // }
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),

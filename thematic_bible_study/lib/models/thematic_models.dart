@@ -1,41 +1,42 @@
 // lib/models/thematic_models.dart
 
 class VerseReference {
-  final String book;
-  final int chapter;
-  final int verseStart;
-  final int verseEnd; // Useful for verse ranges (e.g., 1 Cor 13:4-7)
+  final String formattedReference;
+  final String bookName;
+  final int chapterNumber;
+  final int? verseNumber; // Make nullable, for single verses
+  final int? verseStart;  // New: for verse ranges
+  final int? verseEnd;    // New: for verse ranges
 
   VerseReference({
-    required this.book,
-    required this.chapter,
-    required this.verseStart,
-    required this.verseEnd,
-  });
+    required this.formattedReference,
+    required this.bookName,
+    required this.chapterNumber,
+    this.verseNumber, // Not required if using start/end
+    this.verseStart,  // Not required if using single verseNumber
+    this.verseEnd,    // Not required if using single verseNumber
+  }) : assert(
+          (verseNumber != null && verseStart == null && verseEnd == null) || // Case 1: Single verse
+          (verseNumber == null && verseStart != null && verseEnd != null), // Case 2: Verse range
+          'A VerseReference must have either a single verseNumber OR both verseStart and verseEnd, but not both or neither.',
+        );
 
   factory VerseReference.fromJson(Map<String, dynamic> json) {
     return VerseReference(
-      book: json['book'] as String,
-      chapter: json['chapter'] as int,
-      verseStart: json['verseStart'] as int,
-      verseEnd: json['verseEnd'] as int,
+      formattedReference: json['formattedReference'] as String,
+      bookName: json['bookName'] as String,
+      chapterNumber: json['chapterNumber'] as int,
+      verseNumber: json['verseNumber'] as int?, // Crucial: Safely read as nullable int
+      verseStart: json['verseStart'] as int?,   // Crucial: Safely read as nullable int
+      verseEnd: json['verseEnd'] as int?,       // Crucial: Safely read as nullable int
     );
-  }
-
-  // Helper method to format the reference for display
-  String get formattedReference {
-    if (verseStart == verseEnd) {
-      return '$book $chapter:$verseStart';
-    } else {
-      return '$book $chapter:$verseStart-${verseEnd.toString().padLeft(2, '0')}'; // Pads single digit verses with '0'
-    }
   }
 }
 
 class BibleTheme {
   final String name;
   final String description;
-  final List<VerseReference> verses; // List of associated verse references
+  final List<VerseReference> verses;
 
   BibleTheme({
     required this.name,
@@ -45,13 +46,14 @@ class BibleTheme {
 
   factory BibleTheme.fromJson(Map<String, dynamic> json) {
     var versesList = json['verses'] as List;
-    List<VerseReference> themeVerses =
-        versesList.map((verseJson) => VerseReference.fromJson(verseJson)).toList();
+    List<VerseReference> parsedVerses = versesList
+        .map((i) => VerseReference.fromJson(i as Map<String, dynamic>))
+        .toList();
 
     return BibleTheme(
       name: json['name'] as String,
       description: json['description'] as String,
-      verses: themeVerses,
+      verses: parsedVerses,
     );
   }
 }

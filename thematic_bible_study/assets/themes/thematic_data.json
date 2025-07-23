@@ -3,26 +3,69 @@
     "name": "Love",
     "description": "Scriptures exploring the nature and command of love.",
     "verses": [
-      {"book": "John", "chapter": 3, "verseStart": 16, "verseEnd": 16},
-      {"book": "1 Corinthians", "chapter": 13, "verseStart": 4, "verseEnd": 7},
-      {"book": "Romans", "chapter": 5, "verseStart": 8, "verseEnd": 8}
+      {
+        "formattedReference": "John 3:16",
+        "bookName": "John",
+        "chapterNumber": 3,
+        "verseNumber": 16
+      },
+      {
+        "formattedReference": "1 Corinthians 13:4-7",
+        "bookName": "1 Corinthians",
+        "chapterNumber": 13,
+         "verseStart": 4,
+          "verseEnd": 7
+      },
+      {
+        "formattedReference": "Romans 5:8",
+        "bookName": "Romans",
+        "chapterNumber": 5,
+        "verseNumber": 8
+      }
     ]
   },
   {
     "name": "Faith",
     "description": "Understanding what faith is and how to walk by it.",
     "verses": [
-      {"book": "Hebrews", "chapter": 11, "verseStart": 1, "verseEnd": 1},
-      {"book": "Romans", "chapter": 10, "verseStart": 17, "verseEnd": 17},
-      {"book": "James", "chapter": 2, "verseStart": 17, "verseEnd": 17}
+      {
+        "formattedReference": "Hebrews 11:1",
+        "bookName": "Hebrews",
+         "chapterNumber": 11,
+          "verseNumber": 1     
+      },
+      {
+        "formattedReference": "Romans 10:17",
+        "bookName": "Romans",
+         "chapterNumber": 10,
+          "verseNumber": 17   
+      },
+      {
+        "formattedReference": "James 2:17",
+        "bookName": "James",
+        "chapterNumber": 2,
+        "verseNumber": 17
+      }
     ]
   },
   {
     "name": "Prayer",
     "description": "Guidance and examples on how to pray effectively.",
     "verses": [
-      {"book": "Philippians", "chapter": 4, "verseStart": 6, "verseEnd": 7},
-      {"book": "Matthew", "chapter": 6, "verseStart": 9, "verseEnd": 13}
+      {
+        "formattedReference": "Philippians 4:6-7",
+        "bookName": "Philippians",
+        "chapterNumber": 4,
+        "verseStart": 6,
+        "verseEnd": 7
+      },
+      {
+        "formattedReference": "Matthew 6:9-13",
+        "bookName": "Matthew",
+        "chapterNumber": 6,
+        "verseStart": 9,
+        "verseEnd": 13
+      }
     ]
   }
 ]
