@@ -38,7 +38,8 @@ class _MainAppWrapperState extends State<MainAppWrapper> {
   // List of screens to display in the BottomNavigationBar
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    BibleReaderScreen(),
+    BibleReaderScreen(initialBookName: 'Genesis', // Or your desired starting book
+  initialChapterNumber: 1,),
     ThematicStudyScreen(),
     
     

@@ -1,31 +1,77 @@
-// lib/services/bible_data_service.dart
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 import 'package:thematic_bible_study/models/bible_models.dart';
 import 'package:thematic_bible_study/models/thematic_models.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart'; // Keep this import for debugPrint
 
 class BibleDataService {
   final Map<String, Book> _bookCache = {};
 
+  // Static list of all book names (as in your provided code)
+  static const List<String> _allBookNames = [
+    'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy',
+    'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel',
+    '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra',
+    'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs',
+    'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah', 'Lamentations',
+    'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah',
+    'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi',
+    'Matthew', 'Mark', 'Luke', 'John', 'Acts', 'Romans',
+    '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians', 'Philippians',
+    'Colossians', '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy',
+    'Titus', 'Philemon', 'Hebrews', 'James', '1 Peter', '2 Peter',
+    '1 John', '2 John', '3 John', 'Jude', 'Revelation'
+  ];
+
+  // NEW: Static map for book name to ID mapping
+  // This map is generated once when the class is initialized
+  static final Map<String, int> _bookNameToIdMap = _generateBookNameToIdMap();
+  // NEW: Static map for book ID to name mapping
+  static final Map<int, String> _bookIdToNameMap = _generateBookIdToNameMap();
+
+  // NEW: Helper method to generate the book name to ID map
+  static Map<String, int> _generateBookNameToIdMap() {
+    final Map<String, int> map = {};
+    for (int i = 0; i < _allBookNames.length; i++) {
+      map[_allBookNames[i]] = i + 1; // Assign ID starting from 1
+    }
+    return map;
+  }
+
+  // NEW: Helper method to generate the book ID to name map
+  static Map<int, String> _generateBookIdToNameMap() {
+    final Map<int, String> map = {};
+    for (int i = 0; i < _allBookNames.length; i++) {
+      map[i + 1] = _allBookNames[i]; // Assign ID starting from 1
+    }
+    return map;
+  }
+
+  // NEW: Method to get book ID from book name
+  int getBookIdFromName(String bookName) {
+    final int? bookId = _bookNameToIdMap[bookName];
+    if (bookId == null) {
+      debugPrint('Warning: Book ID not found for book name: $bookName');
+      throw Exception('Book ID not found for book name: $bookName');
+    }
+    return bookId;
+  }
+
+  // NEW: Method to get book name from book ID
+  String getBookNameFromId(int bookId) {
+    final String? bookName = _bookIdToNameMap[bookId];
+    if (bookName == null) {
+      debugPrint('Warning: Book name not found for book ID: $bookId');
+      throw Exception('Book name not found for book ID: $bookId');
+    }
+    return bookName;
+  }
+
+  // @override removed as it's not overriding any inherited method
   Future<List<String>> loadBookNames() async {
     try {
-      final List<String> bookNames = [
-        'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy',
-        'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel',
-        '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra',
-        'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs',
-        'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah', 'Lamentations',
-        'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah',
-        'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi',
-        'Matthew', 'Mark', 'Luke', 'John', 'Acts', 'Romans',
-        '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians', 'Philippians',
-        'Colossians', '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy',
-        'Titus', 'Philemon', 'Hebrews', 'James', '1 Peter', '2 Peter',
-        '1 John', '2 John', '3 John', 'Jude', 'Revelation'
-      ];
-      debugPrint('Loaded book names successfully.');
-      return bookNames;
+      debugPrint('Loaded book names successfully from static list.');
+      return _allBookNames; // Return the static list directly
     } catch (e) {
       debugPrint('Error loading book names: $e');
       return [];
@@ -48,11 +94,12 @@ class BibleDataService {
       final Book book = Book.fromJson(jsonMap);
       _bookCache[bookName] = book;
       debugPrint('Loaded book: ${book.name} from assets successfully.');
-      return book;
     } catch (e) {
-      debugPrint('Error loading or parsing ${bookName}.json: $e');
+      // Fix for unnecessary_brace_in_string_interps
+      debugPrint('Error loading or parsing $bookName.json: $e');
       rethrow;
     }
+    return _bookCache[bookName]!; // Return the cached book after successful load
   }
 
   Future<List<BibleTheme>> loadThemes() async {
@@ -99,7 +146,6 @@ class BibleDataService {
           );
           texts.add('${i}. ${verse.text}');
         }
-        // MODIFIED LINE: Changed '\n\n' to '\n'
         return texts.join('\n');
       } else {
         return 'Error: Invalid verse reference type.';
