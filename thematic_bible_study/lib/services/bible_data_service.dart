@@ -86,6 +86,7 @@ class BibleDataService {
 
     try {
       final String formattedBookName = bookName.replaceAll(' ', '');
+       debugPrint('DEBUG: Attempting to load book: "$bookName". Formatted as "$formattedBookName". Path will be "assets/bible_data/$formattedBookName.json"');
       final String path = 'assets/bible_data/$formattedBookName.json';
 
       final String jsonString = await rootBundle.loadString(path);

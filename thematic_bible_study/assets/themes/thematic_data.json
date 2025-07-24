@@ -67,5 +67,128 @@
         "verseEnd": 13
       }
     ]
+  },
+  {
+    "name": "Hope",
+    "description": "Explores the basis of our Christian hope, future promises, and endurance.",
+    "verses": [
+      {
+        "formattedReference": "Romans 15:13",
+        "bookName": "Romans",
+         "chapterNumber": 15,
+          "verseNumber": 13   
+      },
+      {
+        "formattedReference": "Hebrews 11:1",
+        "bookName": "Hebrews",
+         "chapterNumber": 11,
+          "verseNumber": 1   
+      },
+      {
+        "formattedReference": "Psalms 42:11",
+        "bookName": "Psalms",
+        "chapterNumber": 42,
+        "verseNumber": 11
+      }
+    ]
+  },
+  {
+    "name": "Forgiveness",
+    "description": "Focuses on God's forgiveness, forgiving others, and being forgiven.",
+    "verses": [
+      {
+        "formattedReference": "Colossians 3:13",
+        "bookName": "Colossians",
+         "chapterNumber": 3,
+          "verseNumber": 13     
+      },
+      {
+        "formattedReference": "Ephesians 4:32",
+        "bookName": "Ephesians",
+         "chapterNumber": 4,
+          "verseNumber": 32   
+      },
+      {
+        "formattedReference": "Psalms 103:12",
+        "bookName": "Psalms",
+        "chapterNumber": 103,
+        "verseNumber": 12
+      }
+    ]
+  },
+  {
+    "name": "Grace",
+    "description": "Delves into God's unmerited favor and its implications for salvation and daily living.",
+    "verses": [
+      {
+        "formattedReference": "Ephesians 2:8-9",
+        "bookName": "Ephesians",
+         "chapterNumber": 2,
+          "verseStart": 8,
+          "verseEnd": 9   
+      },
+      {
+        "formattedReference": "Titus 2:11-12",
+        "bookName": "Titus",
+         "chapterNumber": 2,
+          "verseStart": 11,
+          "verseEnd": 12   
+      },
+      {
+        "formattedReference": "2 Corinthians 12:9",
+        "bookName": "2 Corinthians",
+        "chapterNumber": 12,
+        "verseNumber": 9
+      }
+    ]
+  },
+  {
+    "name": "Wisdom",
+    "description": "Examines what true wisdom is, how to attain it, and its practical application.",
+    "verses": [
+      {
+        "formattedReference": "Proverbs 9:10",
+        "bookName": "Proverbs",
+         "chapterNumber": 9,
+          "verseNumber": 10     
+      },
+      {
+        "formattedReference": "James 1:5",
+        "bookName": "James",
+         "chapterNumber": 1,
+          "verseNumber": 5 
+      },
+      {
+        "formattedReference": "Proverbs 4:7",
+        "bookName": "Proverbs",
+        "chapterNumber": 4,
+        "verseNumber": 7
+      }
+    ]
+  },
+   {
+    "name": "Obedience",
+    "description": "Explores what it means to follow Jesus and live according to God's commands.",
+    "verses": [
+      {
+        "formattedReference": "John 14:15",
+        "bookName": "John",
+         "chapterNumber": 14,
+          "verseNumber": 15   
+      },
+      {
+        "formattedReference": "Matthew 28:19-20",
+        "bookName": "Matthew",
+         "chapterNumber": 28,
+          "verseStart": 19,
+          "verseEnd": 20
+      },
+      {
+        "formattedReference": "Luke 9:23",
+        "bookName": "Luke",
+        "chapterNumber": 9,
+        "verseNumber": 23
+      }
+    ]
   }
 ]
