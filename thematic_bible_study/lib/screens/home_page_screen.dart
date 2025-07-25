@@ -4,7 +4,8 @@ import 'package:thematic_bible_study/services/bible_data_service.dart';
 import 'package:thematic_bible_study/models/bible_models.dart';
 import 'dart:math';
 import 'package:flutter/foundation.dart'; // For debugPrint
-import 'package:shared_preferences/shared_preferences.dart'; // NEW: Import shared_preferences
+import 'package:shared_preferences/shared_preferences.dart'; 
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

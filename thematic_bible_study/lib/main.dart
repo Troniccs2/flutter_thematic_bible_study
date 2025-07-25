@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:thematic_bible_study/screens/bible_reader_screen.dart'; 
 import 'package:thematic_bible_study/screens/thematic_study_screen.dart'; 
 import 'package:thematic_bible_study/screens/home_page_screen.dart'; 
+import 'package:thematic_bible_study/screens/church_history_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -41,6 +42,7 @@ class _MainAppWrapperState extends State<MainAppWrapper> {
     BibleReaderScreen(initialBookName: 'Genesis', // Or your desired starting book
   initialChapterNumber: 1,),
     ThematicStudyScreen(),
+    ChurchHistoryScreen(),
     
     
   ];
@@ -58,6 +60,7 @@ class _MainAppWrapperState extends State<MainAppWrapper> {
         child: _widgetOptions.elementAt(_selectedIndex), // Display the selected screen
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -70,6 +73,10 @@ class _MainAppWrapperState extends State<MainAppWrapper> {
           BottomNavigationBarItem(
             icon: Icon(Icons.topic), // Topic/theme icon
             label: 'Themes',
+          ),
+          BottomNavigationBarItem( 
+            icon: Icon(Icons.history_edu), 
+            label: 'History',
           ),
         ],
         currentIndex: _selectedIndex,
