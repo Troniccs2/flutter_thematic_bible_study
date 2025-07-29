@@ -1,39 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:thematic_bible_study/screens/solas_screen.dart'; // <--- NEW: Import the SolasScreen
 
 class ChurchHistoryScreen extends StatelessWidget {
   const ChurchHistoryScreen({super.key});
 
   // Data for each of the history cards
+  // Added a 'destination' key to identify where each card should navigate
   final List<Map<String, dynamic>> _cardData = const [
     {
       'title': 'The Solas',
       'subtitle': 'Core Beliefs',
-      'icon': Icons.article_outlined, // Using a scroll/article icon
+      'icon': Icons.article_outlined,
+      'destination': 'solas', // This will map to SolasScreen
     },
     {
       'title': 'Timeline',
       'subtitle': 'A Chronological Look',
-      'icon': Icons.access_time, // Using a clock icon
+      'icon': Icons.access_time,
+      'destination': 'timeline', // Placeholder for future navigation
     },
     {
       'title': 'Key Figures',
       'subtitle': 'Influential Leaders',
-      'icon': Icons.person, // Using a person icon
+      'icon': Icons.person,
+      'destination': 'key_figures', // Placeholder
     },
     {
       'title': 'Major Events',
       'subtitle': 'Defining Moments',
-      'icon': Icons.flag, // Using a flag icon
+      'icon': Icons.flag,
+      'destination': 'major_events', // Placeholder
     },
     {
       'title': 'Primary Docs',
       'subtitle': 'Original Writings',
-      'icon': Icons.book, // Using a book icon
+      'icon': Icons.book,
+      'destination': 'primary_docs', // Placeholder
     },
     {
       'title': 'Glossary',
       'subtitle': 'Key Terms Explained',
-      'icon': Icons.translate, // Using a translate/dictionary icon
+      'icon': Icons.translate,
+      'destination': 'glossary', // Placeholder
     },
   ];
 
@@ -42,19 +50,18 @@ class ChurchHistoryScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Church History'),
-        backgroundColor: Theme.of(context).primaryColor, // Consistent app bar color
-        elevation: 0, // Remove shadow under app bar for seamless look with header
+        backgroundColor: Theme.of(context).primaryColor,
+        elevation: 0,
       ),
-      body: SingleChildScrollView( // Allows the content to scroll if it overflows
+      body: SingleChildScrollView(
         child: Column(
           children: [
             // --- Header Section ---
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 20.0),
-              // Decoration for the top background, you can add images here later
               decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor.withOpacity(0.8), // A slightly transparent primary color
+                color: Theme.of(context).primaryColor.withOpacity(0.8),
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(30),
                   bottomRight: Radius.circular(30),
@@ -69,7 +76,7 @@ class ChurchHistoryScreen extends StatelessWidget {
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
-                      shadows: [ // Adds a subtle shadow to the text for better contrast
+                      shadows: [
                         Shadow(
                           blurRadius: 5.0,
                           color: Colors.black.withOpacity(0.3),
@@ -92,19 +99,19 @@ class ChurchHistoryScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 20), // Spacing between header and grid
+            const SizedBox(height: 20),
 
             // --- Grid of Cards Section ---
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: GridView.builder(
-                shrinkWrap: true, // Important: allows GridView to take only necessary space inside SingleChildScrollView
-                physics: const NeverScrollableScrollPhysics(), // Important: GridView itself won't scroll, outer SingleChildScrollView handles it
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // 2 items per row
-                  crossAxisSpacing: 16.0, // Horizontal spacing between cards
-                  mainAxisSpacing: 16.0, // Vertical spacing between cards
-                  childAspectRatio: 0.9, // Adjust card height (e.g., 1.0 for square, <1.0 for wider, >1.0 for taller)
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16.0,
+                  mainAxisSpacing: 16.0,
+                  childAspectRatio: 0.9,
                 ),
                 itemCount: _cardData.length,
                 itemBuilder: (context, index) {
@@ -114,11 +121,12 @@ class ChurchHistoryScreen extends StatelessWidget {
                     card['title']!,
                     card['subtitle']!,
                     card['icon']!,
+                    card['destination']!, // <--- Pass the new 'destination' parameter
                   );
                 },
               ),
             ),
-            const SizedBox(height: 20), // Spacing at the bottom of the screen
+            const SizedBox(height: 20),
           ],
         ),
       ),
@@ -126,25 +134,33 @@ class ChurchHistoryScreen extends StatelessWidget {
   }
 
   // Helper method to build each history card
-  Widget _buildHistoryCard(BuildContext context, String title, String subtitle, IconData icon) {
+  // Modified to accept a 'destination' parameter for navigation logic
+  Widget _buildHistoryCard(BuildContext context, String title, String subtitle, IconData icon, String destination) {
     return Card(
-      elevation: 4, // Adds a shadow effect
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)), // Rounded corners
-      child: InkWell( // Makes the entire card tappable with a ripple effect
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(15),
         onTap: () {
-          // TODO: Implement navigation to specific history sections based on the tapped card
-          // For now, it just shows a snackbar message
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('You tapped on: $title')),
-          );
+          // --- NEW NAVIGATION LOGIC ---
+          if (destination == 'solas') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SolasScreen()),
+            );
+          } else {
+            // For other cards, keep the placeholder snackbar for now
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('You tapped on: $title - This section is under construction!')),
+            );
+          }
         },
-        borderRadius: BorderRadius.circular(15), // Ensures ripple effect matches card shape
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center, // Center content vertically
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, size: 48, color: Theme.of(context).primaryColor), // Large icon with app's primary color
+              Icon(icon, size: 48, color: Theme.of(context).primaryColor),
               const SizedBox(height: 10),
               Text(
                 title,
