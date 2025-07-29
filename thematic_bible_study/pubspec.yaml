@@ -36,6 +36,12 @@ flutter:
   assets:
     - assets/bible_data/
     - assets/themes/thematic_data.json
+    - assets/images/sola_Scriptura.png
+    - assets/images/sola_Fide.png
+    - assets/images/sola_Gratia.png
+    - assets/images/sola_Deo_Gloria.png
+    - assets/images/sola_Christus.png
+    - assets/images/reformation_background.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

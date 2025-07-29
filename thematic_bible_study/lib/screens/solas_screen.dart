@@ -1,12 +1,11 @@
 // lib/screens/solas_screen.dart
 import 'package:flutter/material.dart';
-import 'package:thematic_bible_study/models/sola.dart'; // Import the Sola model
-import 'package:thematic_bible_study/screens/sola_detail_screen.dart'; // Import the SolaDetailScreen
+import 'package:thematic_bible_study/models/sola.dart';
+import 'package:thematic_bible_study/screens/sola_detail_screen.dart';
 
 class SolasScreen extends StatelessWidget {
   const SolasScreen({super.key});
 
-  // This list holds all the Sola objects with their unique content
   final List<Sola> solas = const [
     Sola(
       title: 'Sola Scriptura',
@@ -20,7 +19,7 @@ class SolasScreen extends StatelessWidget {
         'Deuteronomy 4:2 (Do not add to what I command you and do not subtract from it, but keep the commands of the Lord your God that I give you.)',
         'Psalm 19:7-11 (The law of the Lord is perfect, refreshing the soul...)',
       ],
-      quotes: [ 
+      quotes: [
         {'text': 'Unless I am convinced by the testimony of the Scriptures or by clear reason, I am bound by the Scriptures I have quoted and my conscience is captive to the Word of God.', 'author': 'Martin Luther'},
         {'text': 'All things in Scripture are not alike plain in themselves, nor alike clear unto all; yet those things which are necessary to be known, believed, and observed, for salvation, are so clearly propounded and opened in some place of Scripture or other, that not only the learned, but the unlearned, in a due use of the ordinary means, may attain unto a sufficient understanding of them.', 'author': 'Westminster Confession of Faith'},
       ],
@@ -29,15 +28,16 @@ class SolasScreen extends StatelessWidget {
       title: 'Sola Fide',
       subtitle: 'Faith Alone',
       meaning:
-          "\"Sola Fide\" (Faith Alone) means to be justified by faith alone, not by the works of man at all.",
+          "\"Sola Fide\" (Faith Alone) is the material principle of the Protestant Reformation. It declares that justification (being declared righteous before God) is by faith alone, apart from works. This means salvation is a gift received through trusting in Jesus Christ and His finished work on the cross, not earned by human merit, good deeds, or adherence to religious rituals. Faith is the instrument through which God's grace is apprehended.",
       scriptures: [
-        'Galatians 2:16 "Knowing that a man is not justified by the works of the law, but by the faith of Jesus Christ."',
-        'Galatians 2:21 "I do not frustrate the grace of God. For if righteousness come by the law, then Christ is dead in vain."',
-        'Hewbrews 11:33 "Who through faith subdued kingdoms, wrought righteousness, obtained promises, stopped the mouths of lions,"'
+        'Romans 3:28 (For we maintain that a person is justified by faith apart from the works of the law.)',
+        'Ephesians 2:8-9 (For it is by grace you have been saved, through faith—and this is not from yourselves, it is the gift of God—not by works, so that no one can boast.)',
+        'Galatians 2:16 (know that a person is not justified by the works of the law, but by faith in Jesus Christ.)',
+        'Philippians 3:9 (and be found in him, not having a righteousness of my own that comes from the law, but that which is through faith in Christ—the righteousness that comes from God on the basis of faith.)',
       ],
-       quotes: [ 
-        {'text': '"First have faith in Christ, and Christ will enable you to do and to live."', 'author': 'Martin Luther'},
-        {'text': '"Faith is the divinity of works."', 'author': 'Martin Luther'},
+      quotes: [
+        {'text': 'Faith is a living, bold trust in God\'s grace, so certain of God\'s favor that it would risk death a thousand times for it.', 'author': 'Martin Luther'},
+        {'text': 'It is pure grace, because faith is a gift of God, and because our works, if they have any value, are a result of this faith.', 'author': 'John Calvin'},
       ],
     ),
     Sola(
@@ -46,12 +46,14 @@ class SolasScreen extends StatelessWidget {
       meaning:
           "\"Sola Gratia\" (Grace Alone) states that salvation is entirely by God's unmerited favor and love, not based on any human effort, merit, or inherent goodness. It emphasizes that God's grace is the sole cause of salvation, from initiation to completion. Humanity, being spiritually dead in sin, cannot contribute to its own redemption, making salvation purely a sovereign act of divine grace.",
       scriptures: [
-        'Galatians 3:17 "And this I say, that the covenant, that was confirmed before of God in Christ, the law, which was four hundred and thirty years after, cannot disannul, that it should make the promise of none effect."',
-        
+        'Ephesians 2:8 (For it is by grace you have been saved, through faith—and this is not from yourselves, it is the gift of God—)',
+        'Romans 11:6 (And if by grace, then it cannot be based on works; if it were, grace would no longer be grace.)',
+        'Titus 3:5 (he saved us, not because of righteous things we had done, but because of his mercy.)',
+        'John 6:44 (No one can come to me unless the Father who sent me draws them, and I will raise them up at the last day.)',
       ],
-       quotes: [ 
-        {'text': 'Unless I am convinced by the testimony of the Scriptures or by clear reason, I am bound by the Scriptures I have quoted and my conscience is captive to the Word of God.', 'author': 'Martin Luther'},
-        {'text': 'All things in Scripture are not alike plain in themselves, nor alike clear unto all; yet those things which are necessary to be known, believed, and observed, for salvation, are so clearly propounded and opened in some place of Scripture or other, that not only the learned, but the unlearned, in a due use of the ordinary means, may attain unto a sufficient understanding of them.', 'author': 'Westminster Confession of Faith'},
+      quotes: [
+        {'text': 'Free grace, for Christ\'s sake, through faith alone, is the grand message of the gospel.', 'author': 'Charles Spurgeon'},
+        {'text': 'There is nothing in man that merits grace.', 'author': 'Augustine of Hippo'},
       ],
     ),
     Sola(
@@ -60,14 +62,14 @@ class SolasScreen extends StatelessWidget {
       meaning:
           "\"Solus Christus\" (Christ Alone) affirms that salvation is accomplished through Jesus Christ alone. He is the sole mediator between God and humanity, and His atoning sacrifice on the cross is the only means by which sins are forgiven and reconciliation with God is achieved. No other person, prophet, ritual, or institution can provide salvation, nor is there any other name by which we must be saved.",
       scriptures: [
-        'Galatians 3:13 "Christ hath redeemed us from the curse of the law, being made a curse for us: for it is written, Cursed is every one that hangeth on a tree:"',
-        'Hebrews 8:6 "But now hath he obtained a more excellent ministry, inasmuch as he is also the mediator of a better covenant, which was established upon better promises."',
-        'Hebrews 9:12 "Neither by the blood of goats and calves, but by his own blood he entered in once into the holy place, having obtained eternal redemption for us."',
-        'Hebrews 10:10 "By the which will we are sanctified through the offering of the body of Jesus Christ once for all."',
+        'Acts 4:12 (Salvation is found in no one else, for there is no other name under heaven given to mankind by which we must be saved.)',
+        'John 14:6 (Jesus answered, “I am the way and the truth and the life. No one comes to the Father except through me.)',
+        '1 Timothy 2:5 (For there is one God and one mediator between God and mankind, the man Christ Jesus,)',
+        'Hebrews 9:15 (For this reason Christ is the mediator of a new covenant, that those who are called may receive the promised eternal inheritance—now that he has died as a ransom to set them free from the sins committed under the first covenant.)',
       ],
-       quotes: [ 
-        {'text': 'Unless I am convinced by the testimony of the Scriptures or by clear reason, I am bound by the Scriptures I have quoted and my conscience is captive to the Word of God.', 'author': 'Martin Luther'},
-        {'text': 'All things in Scripture are not alike plain in themselves, nor alike clear unto all; yet those things which are necessary to be known, believed, and observed, for salvation, are so clearly propounded and opened in some place of Scripture or other, that not only the learned, but the unlearned, in a due use of the ordinary means, may attain unto a sufficient understanding of them.', 'author': 'Westminster Confession of Faith'},
+      quotes: [
+        {'text': 'Christ alone is the head of the church...', 'author': 'Westminster Confession of Faith'},
+        {'text': 'We are saved not by what we do...', 'author': 'R.C. Sproul'},
       ],
     ),
     Sola(
@@ -81,12 +83,29 @@ class SolasScreen extends StatelessWidget {
         'Psalm 115:1 (Not to us, Lord, not to us but to your name be the glory, because of your love and faithfulness.)',
         'Isaiah 42:8 (I am the Lord; that is my name! I will not yield my glory to another or my praise to idols.)',
       ],
-       quotes: [ 
-        {'text': 'Unless I am convinced by the testimony of the Scriptures or by clear reason, I am bound by the Scriptures I have quoted and my conscience is captive to the Word of God.', 'author': 'Martin Luther'},
-        {'text': 'All things in Scripture are not alike plain in themselves, nor alike clear unto all; yet those things which are necessary to be known, believed, and observed, for salvation, are so clearly propounded and opened in some place of Scripture or other, that not only the learned, but the unlearned, in a due use of the ordinary means, may attain unto a sufficient understanding of them.', 'author': 'Westminster Confession of Faith'},
+      quotes: [
+        {'text': 'The chief end of man is to glorify God and to enjoy him forever.', 'author': 'Westminster Shorter Catechism'},
+        {'text': 'All for His glory alone. This is the ultimate goal of all things.', 'author': 'R.C. Sproul'},
       ],
     ),
   ];
+
+  String? _getSolaButtonImagePath(String solaTitle) {
+    switch (solaTitle) {
+      case 'Sola Scriptura':
+        return 'assets/images/sola_Scriptura.png';
+      case 'Sola Fide':
+        return 'assets/images/sola_Fide.png';
+      case 'Sola Gratia':
+        return 'assets/images/sola_Gratia.png';
+      case 'Solus Christus':
+        return 'assets/images/sola_Christus.png';
+      case 'Soli Deo Gloria':
+        return 'assets/images/sola_Deo_Gloria.png';
+      default:
+        return null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,60 +113,106 @@ class SolasScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('The Five Solas'),
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(16.0),
-        itemCount: solas.length,
-        itemBuilder: (context, index) {
-          final sola = solas[index]; // Get the specific Sola object for this card
-          return Card(
-            margin: const EdgeInsets.only(bottom: 16.0),
-            elevation: 4.0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0),
-            ),
-            child: InkWell( // Makes the card tappable with a ripple effect
-              onTap: () {
-                // Navigate to the SolaDetailScreen, passing the entire Sola object
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SolaDetailScreen(sola: sola),
-                  ),
-                );
-              },
-              borderRadius: BorderRadius.circular(12.0),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      sola.title, // Access title directly from the Sola object
-                      style: const TextStyle(
-                        fontSize: 22.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blueAccent,
-                      ),
-                    ),
-                    const SizedBox(height: 8.0),
-                    Text(
-                      sola.subtitle, // Access subtitle directly from the Sola object
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    const SizedBox(height: 8.0),
-                    const Align(
-                      alignment: Alignment.bottomRight,
-                      child: Icon(Icons.arrow_forward_ios, color: Colors.grey),
-                    ),
-                  ],
-                ),
+      body: Stack(
+        children: [
+          // This is the background for the entire screen, now in full color
+          Positioned.fill(
+            child: Opacity( // Retain Opacity for "lighter" effect
+              opacity: 0.8, // Adjust opacity as needed
+              child: Image.asset(
+                'assets/images/reformation_background.png',
+                fit: BoxFit.cover,
               ),
             ),
-          );
-        },
+          ),
+          ListView.builder(
+            padding: const EdgeInsets.all(16.0),
+            itemCount: solas.length,
+            itemBuilder: (context, index) {
+              final sola = solas.elementAt(index);
+              final String? buttonImagePath = _getSolaButtonImagePath(sola.title);
+
+              return Card(
+                margin: const EdgeInsets.only(bottom: 16.0),
+                elevation: 4.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SolaDetailScreen(sola: sola),
+                      ),
+                    );
+                  },
+                  borderRadius: BorderRadius.circular(12.0),
+                  child: Stack(
+                    children: [
+                      if (buttonImagePath != null)
+                        Positioned.fill(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12.0),
+                            child: Opacity( // Retain Opacity for "lighter" effect on cards
+                              opacity: 0.5, // Adjust opacity for "lighter" effect on card
+                              child: Image.asset(
+                                buttonImagePath,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              sola.title,
+                              style: const TextStyle(
+                                fontSize: 22.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black, // Changed to black
+                                shadows: [
+                                  Shadow(
+                                    offset: Offset(1.0, 1.0),
+                                    blurRadius: 3.0,
+                                    color: Colors.white70, // Shadow for black text
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 8.0),
+                            Text(
+                              sola.subtitle,
+                              style: const TextStyle(
+                                fontSize: 16.0,
+                                color: Colors.black87, // Changed to black87
+                                shadows: [
+                                  Shadow(
+                                    offset: Offset(1.0, 1.0),
+                                    blurRadius: 3.0,
+                                    color: Colors.white70, // Shadow for black text
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 8.0),
+                            const Align(
+                              alignment: Alignment.bottomRight,
+                              child: Icon(Icons.arrow_forward_ios, color: Colors.black54), // Changed to black54
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
